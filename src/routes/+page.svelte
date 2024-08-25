@@ -1,7 +1,5 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+
 </script>
 
 <svelte:head>
@@ -11,15 +9,7 @@
 
 <section>
 
-	<Counter />
+	<h1 class="text-white text-center text-7xl">Hello</h1>
+
 </section>
 
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-</style>
