@@ -1,15 +1,24 @@
 <script>
+import Header from './Header.svelte'
+
 
 </script>
 
 <svelte:head>
-	<title>Math Run</title>
+	<title>Untitled</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
+<Header />
 <section>
 
-	<h1 class="text-white text-center text-7xl">Hello</h1>
-
 </section>
+
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+	section {
+		font-family: 'Lexend', sans-serif;
+	}
+</style>
 
