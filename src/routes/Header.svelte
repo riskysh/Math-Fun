@@ -3,7 +3,7 @@
 </script>
 
 <nav class="navbar">
-    <div class="logo">Untitled</div>
+    <div class="text-2xl cursor-pointer">Untitled</div>
 
     <ul class="nav-links">
 
@@ -34,6 +34,7 @@
 
 a {
   text-decoration: none;
+  font-size: 18px;
 }
 
 li {
@@ -50,11 +51,6 @@ li {
 
 .nav-links a {
   color: #fff;
-}
-
-.logo {
-  font-size: 32px;
-  cursor: pointer;
 }
 
 .menu {

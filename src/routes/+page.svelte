@@ -11,7 +11,9 @@ import Header from './Header.svelte'
 
 <Header />
 <section>
-
+	<h1 class="text-white text-center text-7xl font-extrabold mt-28">Tell your story <br>with Illustrations</h1>
+	<p class="text-gray-400 text-center text-1xl font-semibold mt-3">Easily share your stunning Illustrations and Digital Art with artists across the globe.<br>
+		 Try it! it's kinda fun</p>
 </section>
 
 <style>
