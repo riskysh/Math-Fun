@@ -29,7 +29,9 @@
 		stopTimer()
 	})
 
-	
+
+
+
 
 </script>
 
@@ -54,4 +56,3 @@
 		font-family: "JetBrains Mono", monospace;
 	}
 </style>
-
