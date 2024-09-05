@@ -58,10 +58,10 @@
         generateQuestion();
     }
 
-    let questionReady = false;
+    let mounted = false;
     onMount(() => {
         generateQuestion();
-        questionReady = true;
+        mounted = true;
     });
 
     // Manages minimal functionalities
@@ -79,8 +79,8 @@
     <meta name="description" content="Math Speedrun" />
 </svelte:head>
 
-<main>
-    {#if questionReady}
+{#if mounted}
+    <main>
         <div class="flex justify-center h-48 gap-4 mx-auto w-96 my-14">
             <h1 class="mt-12 text-white text-9xl">{firstNum}</h1>
             <h1 class="mt-12 text-white text-9xl">{operator}</h1>
@@ -101,11 +101,11 @@
                 />
             </form>
         </div>
-    {/if}
-    {#if feedback}
-        <h1 class="mt-4 text-2xl text-center text-white">{feedback}</h1>
-    {/if}
-</main>
+        {#if feedback}
+            <h1 class="mt-4 text-2xl text-center text-white">{feedback}</h1>
+        {/if}
+    </main>
+{/if}
 
 <style>
     main {
