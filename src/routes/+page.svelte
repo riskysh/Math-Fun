@@ -85,8 +85,8 @@
 </script>
 
 <svelte:head>
-	<title>Math Fun</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>Math Speedrun</title>
+	<meta name="description" content="Math Speedrun" />
 </svelte:head>
 
 <main>
