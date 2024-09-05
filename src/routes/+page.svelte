@@ -1,12 +1,14 @@
 <script>
 
+	// Generates random numbers
 	function randomNumber() {
 		return Math.floor(Math.random() * 9) + 1
 	}
 
-	const firstNum = randomNumber()
-	const secondNum = randomNumber()
+	let firstNum = randomNumber()
+	let secondNum = randomNumber()
 
+	// Picks random operator
 	function randomOperator() {
 		const operators = ['+','-','×','÷']
 		const randomIndex = Math.floor(Math.random() * operators.length)
@@ -22,6 +24,7 @@
 
 	chooseOperator()
 
+	// Logic to calculate answer
 	let correctAnswer;
 
 	function calculateAnswer() {
@@ -40,6 +43,7 @@
 		}
 	}
 
+	// Logic to generate new questions
 	function generateQuestion() {
 		firstNum;
 		secondNum;
@@ -47,6 +51,7 @@
 		correctAnswer = calculateAnswer()
 	}
 
+	// Logic to check answer
 	let userAnswer;
 	let feedback = ''
 
@@ -54,12 +59,27 @@
 		const userAnswerNumber = parseFloat(userAnswer)
 		if (userAnswer == correctAnswer) {
 			feedback = 'Correct!'
-		} else {
-			feedback = 'Try Again'
+		} if (userAnswer != correctAnswer) {
+			feedback = 'Try again'
 		}
 	}
 
 	generateQuestion()
+
+	// Logic to check answer and generate new question
+	function handleSubmit() {
+		checkAnswer()
+		firstNum = randomNumber()
+		secondNum = randomNumber()
+	}
+
+	
+	let inputValue = ''
+
+	function handleInput() {
+		inputValue = ''
+		userAnswer
+	}
 
 </script>
 
@@ -76,9 +96,16 @@
 		<h1 class="text-white text-9xl mt-12">{secondNum}</h1>
 	</div>
 	<div class="flex mx-auto justify-center gap-2">
+		<form on:submit|preventDefault={handleInput}>
 		<input class="w-80 h-20 bg-[#ffffff12] rounded-xl px-8 text-6xl text-white" 
-		placeholder="01" bind:value={userAnswer} />
-		<button class="h-20 w-28 rounded-lg bg-green-500" on:click={checkAnswer}>Button</button>
+		placeholder="01" type="text" bind:value={inputValue}
+		on:keydown={(event) => {
+			if (event.key === 'Enter') {
+				handleSubmit()
+			}
+		}}
+		/>
+		</form>
 	</div>
 	{#if feedback}
 		<h1 class="text-white text-4xl text-center mt-4">{feedback}</h1>
