@@ -1,12 +1,12 @@
 <script>
     import { onMount } from "svelte";
 
-    let firstNum;
-    let secondNum;
-    let operator;
-    let correctAnswer;
-    let userAnswer = "";
+    let firstNum = 0;
+    let secondNum = 0;
+    let operator = 0;
+    let correctAnswer = 0;
     let feedback = "";
+    let inputValue = "";
 
     // Generates random numbers
     function randomNumber() {
@@ -45,17 +45,14 @@
 
     // Logic to check answer
     function checkAnswer() {
-        if (userAnswer == correctAnswer) {
-            feedback = "Correct!";
-        } else {
-            feedback = "Wrong!";
-        }
+        feedback = inputValue == correctAnswer ? "Correct!" : "Wrong!";
     }
 
     // Logic to check answer and generate new question
     function handleSubmit() {
         checkAnswer();
         generateQuestion();
+        inputValue = "";
     }
 
     let mounted = false;
@@ -63,15 +60,6 @@
         generateQuestion();
         mounted = true;
     });
-
-    // Manages minimal functionalities
-    let inputValue = "";
-
-    function handleInput() {
-        userAnswer = inputValue;
-    }
-
-    $: userAnswer = inputValue;
 </script>
 
 <svelte:head>
@@ -87,23 +75,21 @@
             <h1 class="mt-12 text-white text-9xl">{secondNum}</h1>
         </div>
         <div class="flex justify-center gap-2 mx-auto">
-            <form on:submit|preventDefault={handleInput}>
+            <form on:submit|preventDefault>
                 <input
                     class="w-80 h-20 bg-[#ffffff12] rounded-xl px-8 text-6xl text-white"
                     placeholder="01"
                     type="text"
-                    bind:value={userAnswer}
+                    bind:value={inputValue}
                     on:keydown={(event) => {
-                        if (event.key === "Enter") {
-                            handleSubmit();
-                        }
+                        event.key === "Enter" && handleSubmit();
                     }}
                 />
             </form>
         </div>
-        {#if feedback}
-            <h1 class="mt-4 text-2xl text-center text-white">{feedback}</h1>
-        {/if}
+        <h1 class="mt-4 text-2xl text-center text-white">
+            {feedback ? feedback : ""}
+        </h1>
     </main>
 {/if}
 
