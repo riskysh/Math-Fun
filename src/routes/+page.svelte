@@ -92,9 +92,3 @@
         </h1>
     </main>
 {/if}
-
-<style>
-    main {
-        font-family: "JetBrains Mono", monospace;
-    }
-</style>
