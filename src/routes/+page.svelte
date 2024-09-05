@@ -52,7 +52,7 @@
 	}
 
 	// Logic to check answer
-	let userAnswer;
+	let userAnswer = ''
 	let feedback = ''
 
 	function checkAnswer() {
@@ -60,7 +60,7 @@
 		if (userAnswer == correctAnswer) {
 			feedback = 'Correct!'
 		} if (userAnswer != correctAnswer) {
-			feedback = 'Try again'
+			feedback = 'Wrong!'
 		}
 	}
 
@@ -73,13 +73,14 @@
 		secondNum = randomNumber()
 	}
 
-	
+	// Manages minimal functionalities
 	let inputValue = ''
 
 	function handleInput() {
-		inputValue = ''
-		userAnswer
+		userAnswer = inputValue
 	}
+
+	$: userAnswer = inputValue
 
 </script>
 
@@ -98,7 +99,7 @@
 	<div class="flex mx-auto justify-center gap-2">
 		<form on:submit|preventDefault={handleInput}>
 		<input class="w-80 h-20 bg-[#ffffff12] rounded-xl px-8 text-6xl text-white" 
-		placeholder="01" type="text" bind:value={inputValue}
+		placeholder="01" type="text" bind:value={userAnswer}
 		on:keydown={(event) => {
 			if (event.key === 'Enter') {
 				handleSubmit()
@@ -108,7 +109,7 @@
 		</form>
 	</div>
 	{#if feedback}
-		<h1 class="text-white text-4xl text-center mt-4">{feedback}</h1>
+		<h1 class="text-white text-2xl text-center mt-4">{feedback}</h1>
 	{/if}
 
 </main>
