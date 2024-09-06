@@ -71,14 +71,7 @@
 	// Logic to check answer and generate new question
 	function handleSubmit() {
 		checkAnswer()
-<<<<<<< HEAD
-		firstNum = randomNumber()
-		secondNum = randomNumber()
-		operator = randomOperator()
-		feedback
-=======
 		generateQuestion()
->>>>>>> origin/main
 	}
 
 	// Manages minimal functionalities
