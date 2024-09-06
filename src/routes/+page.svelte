@@ -71,6 +71,8 @@
 		checkAnswer()
 		firstNum = randomNumber()
 		secondNum = randomNumber()
+		operator = randomOperator()
+		feedback
 	}
 
 	// Manages minimal functionalities
