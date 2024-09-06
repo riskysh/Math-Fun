@@ -28,6 +28,7 @@
 	let correctAnswer;
 
 	function calculateAnswer() {
+		console.log("cal",firstNum,secondNum)
 		switch (operator) {
 			case '+':
 				return firstNum + secondNum
@@ -45,9 +46,9 @@
 
 	// Logic to generate new questions
 	function generateQuestion() {
-		firstNum;
-		secondNum;
-		operator;
+		firstNum = randomNumber();
+		secondNum =randomNumber();
+		operator = randomOperator();
 		correctAnswer = calculateAnswer()
 	}
 
@@ -56,7 +57,8 @@
 	let feedback = ''
 
 	function checkAnswer() {
-		const userAnswerNumber = parseFloat(userAnswer)
+		console.log("user",userAnswer)
+		console.log("correct",correctAnswer)
 		if (userAnswer == correctAnswer) {
 			feedback = 'Correct!'
 		} if (userAnswer != correctAnswer) {
@@ -69,10 +71,14 @@
 	// Logic to check answer and generate new question
 	function handleSubmit() {
 		checkAnswer()
+<<<<<<< HEAD
 		firstNum = randomNumber()
 		secondNum = randomNumber()
 		operator = randomOperator()
 		feedback
+=======
+		generateQuestion()
+>>>>>>> origin/main
 	}
 
 	// Manages minimal functionalities
