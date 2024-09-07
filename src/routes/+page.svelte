@@ -1,124 +1,94 @@
 <script>
+    import { onMount } from "svelte";
 
-	// Generates random numbers
-	function randomNumber() {
-		return Math.floor(Math.random() * 9) + 1
-	}
+    let firstNum = 0;
+    let secondNum = 0;
+    let operator = 0;
+    let correctAnswer = 0;
+    let feedback = "";
+    let inputValue = "";
 
-	let firstNum = randomNumber()
-	let secondNum = randomNumber()
+    // Generates random numbers
+    function randomNumber() {
+        return Math.floor(Math.random() * 9) + 1;
+    }
 
-	// Picks random operator
-	function randomOperator() {
-		const operators = ['+','-','×','÷']
-		const randomIndex = Math.floor(Math.random() * operators.length)
+    // Picks random operator
+    function randomOperator() {
+        const operators = ["+", "-", "×", "÷"];
+        const randomIndex = Math.floor(Math.random() * operators.length);
 
-		return operators[randomIndex]
-	}
+        return operators[randomIndex];
+    }
 
-	let operator = ''
+    // Logic to calculate answer
+    function calculateAnswer() {
+        switch (operator) {
+            case "+":
+                return firstNum + secondNum;
+            case "-":
+                return firstNum - secondNum;
+            case "×":
+                return firstNum * secondNum;
+            case "÷":
+                return firstNum / secondNum;
+        }
+    }
 
-	function chooseOperator() {
-		operator = randomOperator()
-	}
+    // Logic to generate new questions
+    function generateQuestion() {
+        firstNum = randomNumber();
+        secondNum = randomNumber();
+        operator = randomOperator();
+        correctAnswer = calculateAnswer();
+    }
 
-	chooseOperator()
+    // Logic to check answer
+    function checkAnswer() {
+        feedback = inputValue == correctAnswer ? "Correct!" : "Wrong!";
+    }
 
-	// Logic to calculate answer
-	let correctAnswer;
+    // Logic to check answer and generate new question
+    function handleSubmit() {
+        checkAnswer();
+        generateQuestion();
+        inputValue = "";
+    }
 
-	function calculateAnswer() {
-		console.log("cal",firstNum,secondNum)
-		switch (operator) {
-			case '+':
-				return firstNum + secondNum
-			case '-':
-				return firstNum - secondNum
-			case '×':
-				return firstNum * secondNum
-			case '÷':
-				return (secondNum !== 0) ? firstNum / secondNum : undefined	
-		
-			default:
-				return null;
-		}
-	}
-
-	// Logic to generate new questions
-	function generateQuestion() {
-		firstNum = randomNumber();
-		secondNum =randomNumber();
-		operator = randomOperator();
-		correctAnswer = calculateAnswer()
-	}
-
-	// Logic to check answer
-	let userAnswer = ''
-	let feedback = ''
-
-	function checkAnswer() {
-		console.log("user",userAnswer)
-		console.log("correct",correctAnswer)
-		if (userAnswer == correctAnswer) {
-			feedback = 'Correct!'
-		} if (userAnswer != correctAnswer) {
-			feedback = 'Wrong!'
-		}
-	}
-
-	generateQuestion()
-
-	// Logic to check answer and generate new question
-	function handleSubmit() {
-		checkAnswer()
-		generateQuestion()
-	}
-
-	// Manages minimal functionalities
-	let inputValue = ''
-
-	function handleInput() {
-		userAnswer = inputValue
-	}
-
-	$: userAnswer = inputValue
-
+    let mounted = false;
+    onMount(() => {
+        generateQuestion();
+        mounted = true;
+    });
 </script>
 
 <svelte:head>
-	<title>Math Speedrun</title>
-	<meta name="description" content="Math Speedrun" />
+    <title>Math Speedrun</title>
+    <meta name="description" content="Math Speedrun" />
 </svelte:head>
 
-<main>
-
-	<div class="h-48 w-96 my-14 justify-center flex mx-auto gap-4">
-		<h1 class="text-white text-9xl mt-12">{firstNum}</h1>
-		<h1 class="text-white text-9xl mt-12">{operator}</h1>
-		<h1 class="text-white text-9xl mt-12">{secondNum}</h1>
-	</div>
-	<div class="flex mx-auto justify-center gap-2">
-		<form on:submit|preventDefault={handleInput}>
-		<input class="w-80 h-20 bg-[#ffffff12] rounded-xl px-8 text-6xl text-white" 
-		placeholder="01" type="text" bind:value={userAnswer}
-		on:keydown={(event) => {
-			if (event.key === 'Enter') {
-				handleSubmit()
-			}
-		}}
-		/>
-		</form>
-	</div>
-	{#if feedback}
-		<h1 class="text-white text-2xl text-center mt-4">{feedback}</h1>
-	{/if}
-
-</main>
-
-<style>
-	@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
-
-	main {
-		font-family: "JetBrains Mono", monospace;
-	}
-</style>
+{#if mounted}
+    <main>
+        <div class="flex justify-center h-48 gap-4 mx-auto w-96 my-14">
+            <h1 class="mt-12 text-white text-9xl">{firstNum}</h1>
+            <h1 class="mt-12 text-white text-9xl">{operator}</h1>
+            <h1 class="mt-12 text-white text-9xl">{secondNum}</h1>
+        </div>
+        <div class="flex justify-center gap-2 mx-auto">
+            <form on:submit|preventDefault>
+                <input
+                    class="w-80 h-20 bg-[#ffffff12] rounded-xl px-8 text-6xl text-white"
+                    placeholder="01"
+                    type="text"
+                    bind:value={inputValue}
+                    on:keydown={(event) => {
+                        event.key === "Enter" && handleSubmit();
+                    }}
+                />
+            </form>
+        </div>
+        <h1 class="mt-4 text-2xl text-center text-white">
+            {feedback ? feedback : ""}
+        </h1>
+    </main>
+{/if}
