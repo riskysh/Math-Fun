@@ -60,6 +60,18 @@
         generateQuestion();
         mounted = true;
     });
+
+    // Timer
+
+    let seconds = 0
+    
+    function startTimer() {
+        const intervalId = setInterval(() => {
+            seconds += 1
+        }, 1000)
+        return () => clearInterval(intervalId)
+    }
+
 </script>
 
 <svelte:head>
@@ -75,7 +87,7 @@
             <h1 class="mt-12 text-white text-9xl">{secondNum}</h1>
         </div>
         <div class="flex justify-center gap-2 mx-auto">
-            <form on:submit|preventDefault>
+            <form on:submit|preventDefault={startTimer}>
                 <input
                     class="w-80 h-20 bg-[#ffffff12] rounded-xl px-8 text-6xl text-white"
                     placeholder="01"
@@ -89,6 +101,9 @@
         </div>
         <h1 class="mt-4 text-2xl text-center text-white">
             {feedback ? feedback : ""}
+        </h1>
+        <h1 class="mt-4 text-2xl text-center text-white">
+            {seconds}
         </h1>
     </main>
 {/if}
