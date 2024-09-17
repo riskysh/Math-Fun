@@ -64,16 +64,22 @@
     // Timer
 
     let seconds = 0
-    
+    let timer = null
+
     function startTimer() {
-        const intervalId = setInterval(() => {
-            seconds += 1
-        }, 1000)
-        return () => clearInterval(intervalId)
+        if (timer === null) {
+            timer = setInterval(() => {
+                seconds += 1
+            }, 1000)
+        }
     }
 
     function stopTimer() {
-        seconds = 0
+        if (timer !== null) {
+            clearInterval(timer)
+            timer = null
+            seconds = 0
+        }
     }
 
     let buttonState = "Start";
@@ -91,6 +97,8 @@
         stopTimer()
         togggleButton() 
     }
+    
+    
 
 </script>
 
