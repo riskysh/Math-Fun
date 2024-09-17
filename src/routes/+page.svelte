@@ -72,6 +72,26 @@
         return () => clearInterval(intervalId)
     }
 
+    function stopTimer() {
+        seconds = 0
+    }
+
+    let buttonState = "Start";
+
+    function togggleButton () {
+        buttonState = buttonState === 'Start' ? 'Stop' : 'Start'
+    }
+
+    function startAndToggle() {
+        startTimer()
+        togggleButton()
+    }
+
+    function stopAndToggle() {
+        stopTimer()
+        togggleButton() 
+    }
+
 </script>
 
 <svelte:head>
@@ -86,7 +106,7 @@
             <h1 class="mt-12 text-white text-9xl">{operator}</h1>
             <h1 class="mt-12 text-white text-9xl">{secondNum}</h1>
         </div>
-        <div class="flex justify-center gap-2 mx-auto">
+        <div class="flex w-full justify-center gap-1 mx-auto">
             <form on:submit|preventDefault={startTimer}>
                 <input
                     class="w-80 h-20 bg-[#ffffff12] rounded-xl px-8 text-6xl text-white"
@@ -105,5 +125,12 @@
         <h1 class="mt-4 text-2xl text-center text-white">
             {seconds}
         </h1>
+        <div class="flex justify-center mx-auto mt-32">
+            {#if buttonState === 'Start'}
+            <button on:click={startAndToggle} class="px-6 py-2 bg-[#ffffff12] text-white rounded-xl">Start Timer</button>
+            {:else}
+            <button on:click={stopAndToggle} class="px-6 py-2 bg-[#ffffff12] text-white rounded-xl">Stop Timer</button>
+            {/if}
+        </div>
     </main>
 {/if}
