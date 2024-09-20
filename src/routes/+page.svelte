@@ -51,6 +51,8 @@
     // Logic to check answer and generate new question
     function handleSubmit() {
         checkAnswer();
+        scoreLogic()
+        updateHighScore()
         generateQuestion();
         inputValue = "";
     }
@@ -98,7 +100,31 @@
         togggleButton() 
     }
     
-    
+    // Score related logic
+
+    let currentScore = 0;
+    let highScore = 0;
+
+    function scoreLogic() {
+        if (feedback === "Correct!") {
+            currentScore += 10
+        }
+    }
+
+    onMount(() => {
+        const storedHighScore = localStorage.getItem("highScore")
+        if (storedHighScore !== null) {
+            highScore = parseInt(storedHighScore)
+        }
+    })
+
+    function updateHighScore() {
+        if (currentScore > highScore) {
+            highScore = currentScore
+            localStorage.setItem("highScore", highScore)
+        }
+    }
+
 
 </script>
 
@@ -109,13 +135,13 @@
 
 {#if mounted}
     <main>
-        <div class="flex justify-center h-48 gap-4 mx-auto w-96 my-14">
+        <div class="flex justify-center h-48 gap-4 mx-auto w-96 my-10">
             <h1 class="mt-12 text-white text-9xl">{firstNum}</h1>
             <h1 class="mt-12 text-white text-9xl">{operator}</h1>
             <h1 class="mt-12 text-white text-9xl">{secondNum}</h1>
         </div>
         <div class="flex w-full justify-center gap-1 mx-auto">
-            <form on:submit|preventDefault={startTimer}>
+            <form on:submit|preventDefault>
                 <input
                     class="w-80 h-20 bg-[#ffffff12] rounded-xl px-8 text-6xl text-white"
                     placeholder="01"
@@ -131,9 +157,15 @@
             {feedback ? feedback : ""}
         </h1>
         <h1 class="mt-4 text-2xl text-center text-white">
-            {seconds}
+            Seconds: {seconds}
         </h1>
-        <div class="flex justify-center mx-auto mt-32">
+        <h1 class="mt-4 text-2xl text-center text-white">
+            High Score: {highScore}
+        </h1>
+        <h1 class="mt-4 text-2xl text-center text-white">
+            Current Score: {currentScore}
+        </h1>
+        <div class="flex justify-center mx-auto mt-4">
             {#if buttonState === 'Start'}
             <button on:click={startAndToggle} class="px-6 py-2 bg-[#ffffff12] text-white rounded-xl">Start Timer</button>
             {:else}
